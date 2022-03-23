@@ -43,13 +43,14 @@ namespace TestComplex.Domain.Managers
         public TResult GetChapterById<TResult>(long id, Func<Chapter, TResult> selector)
         {
             return _ctx.Chapters
+                .Include(x => x.Topics)
                 .Where(x => x.Id == id)
                 .Select(selector)
                 .FirstOrDefault();
         }
 
-        public IEnumerable<TResult> GetChaptersTopics<TResult>(
-            Func<Chapter, TResult> selector)
+        public IEnumerable<TResult> GetChaptersAll<TResult>(
+           Func<Chapter, TResult> selector)
         {
             return _ctx.Chapters
                 .Include(x => x.Topics)
@@ -58,24 +59,16 @@ namespace TestComplex.Domain.Managers
                 .ToList();
         }
 
-        //public IEnumerable<TResult> FilterChapters<TResult>(string chapterName,
-        //    Func<Chapter, TResult> selector)
-        //{
-        //    var chapters = _ctx.Chapters
-        //       .ToList();
-        //    if (chapterName != null)
-        //    {
-        //        chapters = chapters
-        //        .Where(x => x.Title.Contains(chapterName))
-        //        .ToList();
-        //    }
-
-        //    chapters = chapters
-        //        .OrderBy(x => x.Title)
-        //        .ToList();
-
-        //    return chapters.Select(selector).ToList();
-
-        //}
+        public IEnumerable<TResult> GetChaptersInCategory<TResult>(
+            int categoryId,
+            Func<Chapter, TResult> selector)
+        {
+            return _ctx.Chapters
+                .Include(x => x.Topics)
+                .Where(x => x.CategoryId == categoryId)
+                .OrderBy(x => x.Title)
+                .Select(selector)
+                .ToList();
+        }
     }
 }

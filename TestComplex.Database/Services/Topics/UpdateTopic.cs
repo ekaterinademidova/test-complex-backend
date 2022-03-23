@@ -1,9 +1,9 @@
 ﻿using System.Threading.Tasks;
 using TestComplex.Domain.Infrastucture;
+using TestComplex.Domain.Models;
 
-namespace TestComplex.Database.Services.TopicsAdmin
+namespace TestComplex.Database.Services.Topics
 {
-    [Service]
     public class UpdateTopic
     {
         private readonly ITopicManager _topicManager;

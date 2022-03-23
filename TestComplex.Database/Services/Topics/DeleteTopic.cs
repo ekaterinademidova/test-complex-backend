@@ -1,9 +1,8 @@
 ﻿using System.Threading.Tasks;
 using TestComplex.Domain.Infrastucture;
 
-namespace TestComplex.Database.Services.TopicsAdmin
+namespace TestComplex.Database.Services.Topics
 {
-    [Service]
     public class DeleteTopic
     {
         private readonly ITopicManager _topicManager;

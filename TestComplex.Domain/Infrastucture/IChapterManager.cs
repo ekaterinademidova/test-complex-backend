@@ -11,7 +11,8 @@ namespace TestComplex.Domain.Infrastucture
         Task<int> DeleteChapter(long id);
         Task<int> UpdateChapter(Chapter chapter);
 
-        IEnumerable<TResult> GetChaptersTopics<TResult>(Func<Chapter, TResult> selector);
+        IEnumerable<TResult> GetChaptersAll<TResult>(Func<Chapter, TResult> selector);
+        IEnumerable<TResult> GetChaptersInCategory<TResult>(int categoryId, Func<Chapter, TResult> selector);
 
         TResult GetChapterById<TResult>(long id, Func<Chapter, TResult> selector);
     }

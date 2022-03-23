@@ -1,27 +1,32 @@
-﻿using System.Threading.Tasks;
+﻿using System;
+using System.Threading.Tasks;
 using TestComplex.Domain.Infrastucture;
+using TestComplex.Domain.Models;
 
-namespace TestComplex.Database.Services.AnswersAdmin
+namespace TestComplex.Database.Services.Answers
 {
-    [Service]
-    public class UpdateAnswer
+    public class CreateAnswer
     {
         private readonly IAnswerManager _answerManager;
 
-        public UpdateAnswer(IAnswerManager answerManager)
+        public CreateAnswer(IAnswerManager answerManager)
         {
             _answerManager = answerManager;
         }
 
         public async Task<Response> Do(Request request)
         {
-            var answer = _answerManager.GetAnswerById(request.Id, x => x);
+            var answer = new Answer
+            {
+                Title = request.Title,
+                Status = request.Status,
+                QuestionId = request.QuestionId
+            };
 
-            answer.Title = request.Title;
-            answer.Status = request.Status;
-            answer.QuestionId = request.QuestionId;
-
-            await _answerManager.UpdateAnswer(answer);
+            if (await _answerManager.CreateAnswer(answer) <= 0)
+            {
+                throw new Exception("Failed to create answer");
+            }
 
             return new Response
             {
@@ -34,7 +39,6 @@ namespace TestComplex.Database.Services.AnswersAdmin
 
         public class Request
         {
-            public long Id { get; set; }
             public string Title { get; set; }
             public bool Status { get; set; }
             public long QuestionId { get; set; }

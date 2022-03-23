@@ -1,10 +1,7 @@
-﻿using System.Collections.Generic;
-using System.Linq;
-using TestComplex.Domain.Infrastucture;
+﻿using TestComplex.Domain.Infrastucture;
 
 namespace TestComplex.Database.Services.Topics
 {
-    [Service]
     public class GetTopic
     {
         private readonly ITopicManager _topicManager;
@@ -14,25 +11,18 @@ namespace TestComplex.Database.Services.Topics
             _topicManager = topicManager;
         }
 
-        public TopicViewModel Do(long id)
-        {
-            return _topicManager
-                .GetTopicById(id, x => new TopicViewModel
-                {
-                    Id = x.Id,
-                    Title = x.Title,
-                    Description = x.Description,
-                    ChapterId = x.ChapterId,
-                    Lecture = x.Lecture,
-                    Lab = x.Lab,
+        public TopicViewModel Do(int id) =>
+            _topicManager.GetTopicById(id, x => new TopicViewModel
+            {
+                Id = x.Id,
+                Title = x.Title,
+                Description = x.Description,
+                ChapterId = x.ChapterId,
+                Lecture = x.Lecture,
+                Lab = x.Lab,
 
-                    Questions = x.Questions.Select(y => new QuestionViewModel
-                    {
-                        Id = y.Id,
-                        Title = y.Title                        
-                    })
-                });
-        }
+                QuestionsCount = x.Questions.Count
+            });
 
         public class TopicViewModel
         {
@@ -42,13 +32,9 @@ namespace TestComplex.Database.Services.Topics
             public long ChapterId { get; set; }
             public string Lecture { get; set; }
             public string Lab { get; set; }
-            public IEnumerable<QuestionViewModel> Questions { get; set; }
-        }
 
-        public class QuestionViewModel
-        {
-            public long Id { get; set; }
-            public string Title { get; set; }
+            public int QuestionsCount { get; set; }
+
         }
     }
 }

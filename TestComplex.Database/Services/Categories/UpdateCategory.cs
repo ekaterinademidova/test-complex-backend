@@ -1,9 +1,8 @@
 ﻿using System.Threading.Tasks;
 using TestComplex.Domain.Infrastucture;
 
-namespace TestComplex.Database.Services.CategoriesAdmin
+namespace TestComplex.Database.Services.Categories
 {
-    [Service]
     public class UpdateCategory
     {
         private readonly ICategoryManager _categoryManager;

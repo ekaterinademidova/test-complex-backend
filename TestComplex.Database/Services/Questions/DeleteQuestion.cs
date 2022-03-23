@@ -1,9 +1,8 @@
 ﻿using System.Threading.Tasks;
 using TestComplex.Domain.Infrastucture;
 
-namespace TestComplex.Database.Services.QuestionsAdmin
+namespace TestComplex.Database.Services.Questions
 {
-    [Service]
     public class DeleteQuestion
     {
         private readonly IQuestionManager _questionManager;

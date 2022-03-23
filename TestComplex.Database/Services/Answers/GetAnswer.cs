@@ -2,7 +2,6 @@
 
 namespace TestComplex.Database.Services.Answers
 {
-    [Service]
     public class GetAnswer
     {
 
@@ -13,16 +12,14 @@ namespace TestComplex.Database.Services.Answers
             _answerManager = answerManager;
         }
 
-        public AnswerViewModel Do(int id)
-        {
-            return _answerManager.GetAnswerById(id, x => new AnswerViewModel
+        public AnswerViewModel Do(int id) =>
+            _answerManager.GetAnswerById(id, x => new AnswerViewModel
             {
                 Id = x.Id,
                 Title = x.Title,
                 Status = x.Status,
                 QuestionId = x.QuestionId
             });
-        }
 
         public class AnswerViewModel
         {

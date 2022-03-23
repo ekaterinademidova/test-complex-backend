@@ -1,4 +1,6 @@
-﻿using System;
+﻿using Microsoft.EntityFrameworkCore;
+using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using TestComplex.Database;
@@ -16,9 +18,18 @@ namespace TestComplex.Domain.Managers
             _ctx = ctx;
         }
 
-        public Task<int> CreateProgress(Progress progress)
+        //public Task<int> CreateProgress(Progress progress)
+        //public Task<int> CreateProgress(Result result)
+        //{
+        //    //_ctx.Progresses.Add(progress);
+        //    _ctx.Progresses.Add(result.Progress);
+
+        //    return _ctx.SaveChangesAsync();
+        //}
+
+        public Task<int> CreateProgress(Result result)
         {
-            _ctx.Progresses.Add(progress);
+            _ctx.Progresses.Add(result.Progress);
 
             return _ctx.SaveChangesAsync();
         }

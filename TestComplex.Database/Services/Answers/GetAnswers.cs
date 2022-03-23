@@ -3,7 +3,6 @@ using TestComplex.Domain.Infrastucture;
 
 namespace TestComplex.Database.Services.Answers
 {
-    [Service]
     public class GetAnswers
     {
         private readonly IAnswerManager _answerManager;
@@ -13,8 +12,8 @@ namespace TestComplex.Database.Services.Answers
             _answerManager = answerManager;
         }
 
-        public IEnumerable<AnswerViewModel> Do() =>
-            _answerManager.GetAnswers(x => new AnswerViewModel
+        public IEnumerable<AnswerViewModel> Do(int questionId) =>
+            _answerManager.GetAnswers(questionId, x => new AnswerViewModel
             {
                 Id = x.Id,
                 Title = x.Title,

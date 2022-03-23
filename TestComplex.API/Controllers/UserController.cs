@@ -6,7 +6,7 @@ using TestComplex.Database.Services.Users;
 namespace TestComplex.API.Controllers
 {
     [Route("users")]
-    public class UserController : TestComplexControllerBase
+    public class UserController : ControllerBase
     {
         [HttpGet("public")]
         [AllowAnonymous]

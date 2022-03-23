@@ -1,27 +1,32 @@
-﻿using System.Threading.Tasks;
+﻿using System;
+using System.Threading.Tasks;
 using TestComplex.Domain.Infrastucture;
+using TestComplex.Domain.Models;
 
-namespace TestComplex.Database.Services.ChaptersAdmin
+namespace TestComplex.Database.Services.Chapters
 {
-    [Service]
-    public class UpdateChapter
+    public class CreateChapter
     {
         private readonly IChapterManager _chapterManager;
 
-        public UpdateChapter(IChapterManager chapterManager)
+        public CreateChapter(IChapterManager chapterManager)
         {
             _chapterManager = chapterManager;
         }
 
         public async Task<Response> Do(Request request)
         {
-            var chapter = _chapterManager.GetChapterById(request.Id, x => x);
+            var chapter = new Chapter
+            {
+                Title = request.Title,
+                Description = request.Description,
+                CategoryId = request.CategoryId
+            };
 
-            chapter.Title = request.Title;
-            chapter.Description = request.Description;
-            chapter.CategoryId = request.CategoryId;
-
-            await _chapterManager.UpdateChapter(chapter);
+            if (await _chapterManager.CreateChapter(chapter) <= 0)
+            {
+                throw new Exception("Failed to create chapter");
+            }
 
             return new Response
             {
@@ -34,7 +39,6 @@ namespace TestComplex.Database.Services.ChaptersAdmin
 
         public class Request
         {
-            public long Id { get; set; }
             public string Title { get; set; }
             public string Description { get; set; }
             public long CategoryId { get; set; }

@@ -43,13 +43,14 @@ namespace TestComplex.Domain.Managers
         public TResult GetTopicById<TResult>(long id, Func<Topic, TResult> selector)
         {
             return _ctx.Topics
+                .Include(x => x.Questions)
                 .Where(x => x.Id == id)
                 .Select(selector)
                 .FirstOrDefault();
         }
 
-        public IEnumerable<TResult> GetTopicsQuestions<TResult>(
-            Func<Topic, TResult> selector)
+        public IEnumerable<TResult> GetTopicsAll<TResult>(
+          Func<Topic, TResult> selector)
         {
             return _ctx.Topics
                 .Include(x => x.Questions)
@@ -58,22 +59,41 @@ namespace TestComplex.Domain.Managers
                 .ToList();
         }
 
-        //public IEnumerable<TResult> FilterTopics<TResult>(string topicName,
-        //    Status status,
+        public IEnumerable<TResult> GetTopicsInChapter<TResult>(
+            int chapterId,
+            Func<Topic, TResult> selector)
+        {
+            return _ctx.Topics
+                .Include(x => x.Questions)
+                .Where(x => x.ChapterId == chapterId)
+                .OrderBy(x => x.Title)
+                .Select(selector)
+                .ToList();
+        }
+
+        //public IEnumerable<TResult> GetTopicsQuestions<TResult>(
+        //    int chapterId,
         //    Func<Topic, TResult> selector)
         //{
+        //    return _ctx.Topics
+        //        .Include(x => x.Questions)
+        //         .Where(x => x.ChapterId == chapterId)
+        //        .OrderBy(x => x.Title)
+        //        .Select(selector)
+        //        .ToList();
+        //}
+
+        //public IEnumerable<TResult> SearchTopics<TResult>(string topicName, 
+        //   int chapterId,
+        //   Func<Topic, TResult> selector)
+        //{
         //    var topics = _ctx.Topics
+        //        .Where(x => x.ChapterId == chapterId)
         //       .ToList();
         //    if (topicName != null)
         //    {
         //        topics = topics
         //        .Where(x => x.Title.Contains(topicName))
-        //        .ToList();
-        //    }
-        //    if (status != Status.all)
-        //    {
-        //        topics = topics
-        //        .Where(x => x.Status == status)
         //        .ToList();
         //    }
 
@@ -84,25 +104,5 @@ namespace TestComplex.Domain.Managers
         //    return topics.Select(selector).ToList();
 
         //}
-
-        public IEnumerable<TResult> SearchTopics<TResult>(string topicName,
-           Func<Topic, TResult> selector)
-        {
-            var topics = _ctx.Topics
-               .ToList();
-            if (topicName != null)
-            {
-                topics = topics
-                .Where(x => x.Title.Contains(topicName))
-                .ToList();
-            }
-
-            topics = topics
-                .OrderBy(x => x.Title)
-                .ToList();
-
-            return topics.Select(selector).ToList();
-
-        }
     }
 }

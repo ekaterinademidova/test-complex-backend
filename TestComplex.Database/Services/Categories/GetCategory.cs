@@ -1,10 +1,7 @@
-﻿using System.Collections.Generic;
-using System.Linq;
-using TestComplex.Domain.Infrastucture;
+﻿using TestComplex.Domain.Infrastucture;
 
 namespace TestComplex.Database.Services.Categories
 {
-    [Service]
     public class GetCategory
     {
 
@@ -15,34 +12,15 @@ namespace TestComplex.Database.Services.Categories
             _categoryManager = categoryManager;
         }
 
-        public CategoryViewModel Do(int id)
-        {
-            return _categoryManager
-                .GetCategoryById(id, x => new CategoryViewModel
-                {
-                    Id = x.Id,
-                    Title = x.Title,
-                    Description = x.Description,
-
-                    Chapters = x.Chapters.Select(y => new ChapterViewModel
-                    {
-                        Id = y.Id,
-                        Title = y.Title,
-                        Description = y.Description
-                    })
-                });
-        }
+        public CategoryViewModel Do(int id) =>
+            _categoryManager.GetCategoryById(id, x => new CategoryViewModel
+            {
+                Id = x.Id,
+                Title = x.Title,
+                Description = x.Description
+            });
 
         public class CategoryViewModel
-        {
-            public long Id { get; set; }
-            public string Title { get; set; }
-            public string Description { get; set; }
-            public IEnumerable<ChapterViewModel> Chapters { get; set; }
-
-        }
-
-        public class ChapterViewModel
         {
             public long Id { get; set; }
             public string Title { get; set; }

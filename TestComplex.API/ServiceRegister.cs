@@ -28,6 +28,11 @@ namespace Microsoft.Extensions.DependencyInjection
 
             @this.AddTransient<IUserManager, UserManager>();
             @this.AddTransient<ICategoryManager, CategoryManager>();
+            @this.AddTransient<IChapterManager, ChapterManager>();
+            @this.AddTransient<ITopicManager, TopicManager>();
+            @this.AddTransient<IQuestionManager, QuestionManager>();
+            @this.AddTransient<IAnswerManager, AnswerManager>();
+            @this.AddTransient<IProgressManager, ProgressManager>();
 
             return @this;
         }

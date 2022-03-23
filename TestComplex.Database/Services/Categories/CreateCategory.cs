@@ -3,9 +3,8 @@ using System.Threading.Tasks;
 using TestComplex.Domain.Infrastucture;
 using TestComplex.Domain.Models;
 
-namespace TestComplex.Database.Services.CategoriesAdmin
+namespace TestComplex.Database.Services.Categories
 {
-    [Service]
     public class CreateCategory
     {
         private readonly ICategoryManager _categoryManager;
@@ -25,7 +24,7 @@ namespace TestComplex.Database.Services.CategoriesAdmin
 
             if (await _categoryManager.CreateCategory(category) <= 0)
             {
-                throw new Exception("Failed to create product");
+                throw new Exception("Failed to create category");
             }
 
             return new Response

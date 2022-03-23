@@ -9,6 +9,5 @@ namespace TestComplex.Domain.Models
         public long TopicId { get; set; }
         public Topic Topic { get; set; }
         public ICollection<Answer> Answers { get; set; }
-
     }
 }

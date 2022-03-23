@@ -10,7 +10,7 @@ using TestComplex.Database;
 namespace TestComplex.Database.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20220222030102_init")]
+    [Migration("20220222181924_init")]
     partial class init
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)

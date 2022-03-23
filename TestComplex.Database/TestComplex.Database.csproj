@@ -18,8 +18,4 @@
       <ProjectReference Include="..\TestComplex.Domain\TestComplex.Domain.csproj" />
     </ItemGroup>
 
-    <ItemGroup>
-      <Folder Include="Services\Progresses\" />
-    </ItemGroup>
-
 </Project>

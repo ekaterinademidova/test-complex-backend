@@ -13,9 +13,7 @@ namespace TestComplex.Domain.Infrastucture
 
         TResult GetTopicById<TResult>(long id, Func<Topic, TResult> selector);
 
-        IEnumerable<TResult> GetTopicsQuestions<TResult>(Func<Topic, TResult> selector);
-
-        //IEnumerable<TResult> FilterTopics<TResult>(string topicName, Status status, Func<Topic, TResult> selector);
-        IEnumerable<TResult> SearchTopics<TResult>(string topicName, Func<Topic, TResult> selector);
+        IEnumerable<TResult> GetTopicsAll<TResult>(Func<Topic, TResult> selector);
+        IEnumerable<TResult> GetTopicsInChapter<TResult>(int chapterId, Func<Topic, TResult> selector);
     }
 }

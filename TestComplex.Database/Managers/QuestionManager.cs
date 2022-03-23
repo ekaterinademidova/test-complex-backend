@@ -43,38 +43,22 @@ namespace TestComplex.Domain.Managers
         public TResult GetQuestionById<TResult>(long id, Func<Question, TResult> selector)
         {
             return _ctx.Questions
+                .Include(x => x.Answers)
                 .Where(x => x.Id == id)
                 .Select(selector)
                 .FirstOrDefault();
         }
 
         public IEnumerable<TResult> GetQuestionsAnswers<TResult>(
+           int topicId,
            Func<Question, TResult> selector)
         {
             return _ctx.Questions
                 .Include(x => x.Answers)
+                .Where(x => x.TopicId == topicId)
                 .OrderBy(x => x.Title)
                 .Select(selector)
                 .ToList();
-        }
-
-        public IEnumerable<TResult> SearchQuestions<TResult>(string questionName, 
-            Func<Question, TResult> selector)
-        {
-            var questions = _ctx.Questions
-               .ToList();
-            if (questionName != null)
-            {
-                questions = questions
-                .Where(x => x.Title.Contains(questionName))
-                .ToList();
-            }
-
-            questions = questions
-                .OrderBy(x => x.Title)
-                .ToList();
-
-            return questions.Select(selector).ToList();
         }
     }
 }

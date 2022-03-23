@@ -1,9 +1,8 @@
 ﻿using System.Threading.Tasks;
 using TestComplex.Domain.Infrastucture;
 
-namespace TestComplex.Database.Services.ChaptersAdmin
+namespace TestComplex.Database.Services.Chapters
 {
-    [Service]
     public class DeleteChapter
     {
         private readonly IChapterManager _chapterManager;

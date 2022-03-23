@@ -48,9 +48,11 @@ namespace TestComplex.Domain.Managers
         }
 
         public IEnumerable<TResult> GetAnswers<TResult>(
+            long questionId,
             Func<Answer, TResult> selector)
         {
             return _ctx.Answers
+                .Where(x => x.QuestionId == questionId)
                 .OrderBy(x => x.Title)
                 .Select(selector)
                 .ToList();

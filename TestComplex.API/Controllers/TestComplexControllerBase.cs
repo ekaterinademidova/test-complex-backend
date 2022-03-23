@@ -4,7 +4,7 @@ using Microsoft.AspNetCore.Mvc;
 namespace TestComplex.API.Controllers
 {
     [ApiController]
-    [Authorize]
+    //[Authorize]
     public class TestComplexControllerBase : ControllerBase
     {
         

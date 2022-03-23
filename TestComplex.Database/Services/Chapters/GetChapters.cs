@@ -3,7 +3,6 @@ using TestComplex.Domain.Infrastucture;
 
 namespace TestComplex.Database.Services.Chapters
 { 
-    [Service]
     public class GetChapters
     {
         private readonly IChapterManager _chapterManager;
@@ -13,8 +12,21 @@ namespace TestComplex.Database.Services.Chapters
             _chapterManager = chapterManager;
         }
 
-        public IEnumerable<ChapterViewModel> Do() =>
-            _chapterManager.GetChaptersTopics(x => new ChapterViewModel
+        public IEnumerable<ChapterViewModel> Do(int categoryId)
+        {
+            if (categoryId == 0)
+            {
+                return _chapterManager.GetChaptersAll(x => new ChapterViewModel
+                {
+                    Id = x.Id,
+                    Title = x.Title,
+                    Description = x.Description,
+                    CategoryId = x.CategoryId,
+
+                    TopicsCount = x.Topics.Count
+                });
+            }
+            return _chapterManager.GetChaptersInCategory(categoryId, x => new ChapterViewModel
             {
                 Id = x.Id,
                 Title = x.Title,
@@ -23,6 +35,7 @@ namespace TestComplex.Database.Services.Chapters
 
                 TopicsCount = x.Topics.Count
             });
+        }
 
         public class ChapterViewModel
         {
@@ -31,7 +44,6 @@ namespace TestComplex.Database.Services.Chapters
             public string Description { get; set; }
             public long CategoryId { get; set; }
             public int TopicsCount { get; set; }
-
         }
     }
 }

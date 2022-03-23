@@ -13,9 +13,7 @@ namespace TestComplex.Domain.Infrastucture
 
         TResult GetQuestionById<TResult>(long id, Func<Question, TResult> selector);
 
-        IEnumerable<TResult> GetQuestionsAnswers<TResult>(Func<Question, TResult> selector);
-
-        IEnumerable<TResult> SearchQuestions<TResult>(string questionName, Func<Question, TResult> selector);
+        IEnumerable<TResult> GetQuestionsAnswers<TResult>(int topicId, Func<Question, TResult> selector);
 
     }
 }

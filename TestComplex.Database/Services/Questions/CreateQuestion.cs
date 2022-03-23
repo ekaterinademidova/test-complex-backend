@@ -1,26 +1,31 @@
-﻿using System.Threading.Tasks;
+﻿using System;
+using System.Threading.Tasks;
 using TestComplex.Domain.Infrastucture;
+using TestComplex.Domain.Models;
 
-namespace TestComplex.Database.Services.QuestionsAdmin
+namespace TestComplex.Database.Services.Questions
 {
-    [Service]
-    public class UpdateQuestion
+    public class CreateQuestion
     {
         private readonly IQuestionManager _questionManager;
 
-        public UpdateQuestion(IQuestionManager questionManager)
+        public CreateQuestion(IQuestionManager questionManager)
         {
             _questionManager = questionManager;
         }
 
         public async Task<Response> Do(Request request)
         {
-            var question = _questionManager.GetQuestionById(request.Id, x => x);
+            var question = new Question
+            {
+                Title = request.Title,
+                TopicId = request.TopicId
+            };
 
-            question.Title = request.Title;
-            question.TopicId = request.TopicId;
-
-            await _questionManager.UpdateQuestion(question);
+            if (await _questionManager.CreateQuestion(question) <= 0)
+            {
+                throw new Exception("Failed to create question");
+            }
 
             return new Response
             {
@@ -32,7 +37,6 @@ namespace TestComplex.Database.Services.QuestionsAdmin
 
         public class Request
         {
-            public long Id { get; set; }
             public string Title { get; set; }
             public long TopicId { get; set; }
         }

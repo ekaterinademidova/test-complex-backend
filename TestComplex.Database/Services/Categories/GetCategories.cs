@@ -3,7 +3,6 @@ using TestComplex.Domain.Infrastucture;
 
 namespace TestComplex.Database.Services.Categories
 {
-    [Service]
     public class GetCategories
     {
         private readonly ICategoryManager _categoryManager;
